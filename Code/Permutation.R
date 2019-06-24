@@ -41,8 +41,8 @@ shuff_cwas <- function(data, depvar, time1, time2,  covars , adjvars){
 
 data <- read_sas("./data.sas7bdat")
 
-covar <- c()
-adjustfor <- c()
+covar <- c()     # this vector should be filled with exposure names.
+adjustfor <- c()   # this vector should be filled with adjusitng variables.
 
 
 
@@ -51,7 +51,7 @@ doForm <- NULL
 baseform <- as.formula(sprintf('Surv(%s, %s, %s) ~ %s', 'start_time', 'stop_time', 'chdcase', 'agecon'))
 doForm <- addToBase(baseform, adjustfor)
 mod <- coxph(formula = doForm, data = data)
-num_cases <- 2774
+num_cases <- 2774            # this is the number of cases in the dataset.
 
 
 pred <- survival:::predict.coxph(mod, type='expected')
@@ -83,7 +83,8 @@ for (n in 1:n_permutation){
   data$new_chdcase <- id_idx$chdcase
   data$new_chdcase <- ave(data$new_chdcase, data$id, FUN = function(x) replace(x, which(cumsum(x)>=1)[-1], NA))
   df <- subset(data, ! is.na(data$new_chdcase))
-
+                          
+  # parallel computing 
   no_cores <- detectCores() - 2
   cl<-makeCluster(no_cores)
   registerDoParallel(cl)
