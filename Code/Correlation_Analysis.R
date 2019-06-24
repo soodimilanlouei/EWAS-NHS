@@ -19,7 +19,7 @@ library(Hmisc)
 library(corrplot)
 
 data <- read_sas('./data.sas7bdat')
-sig_covar <- c()
+sig_covar <- c()     # this vector should be filled with statisitcally significant variables found by EWAS.
 
 
 cor_res <- rcorr(as.matrix(data), type = 'spearman')
@@ -41,7 +41,7 @@ write.csv(cor_res_flatten, './cor_res_flatten.csv')
 out_df <- data.frame(matrix(ncol = 3, nrow = 1378))
 colnames(out_df) <- c('row', 'column', 'perm_cor')
 
-
+# permutation
 c <- 1
 cc <- 1
 for (i in sig_covar[1:52]){
@@ -81,8 +81,7 @@ cor_merge_2 <- rbind(cor_merge_2,cor_merge_1)
 write.csv(cor_merge_2, './permuted_correlation.csv')
 
 
-
+# visualization
 thre <- 5.47E-05
-
 corrplot(cor_res$r,  order="hclust", tl.cex = 0.5, tl.col = 'black', type="upper",
          p.mat = cor_res$P, sig.level = thre, insig = "pch", pch.cex = 0.5)
