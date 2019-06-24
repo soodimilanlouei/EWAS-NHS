@@ -21,6 +21,7 @@ addToBase <- function(base_formula, adjustingVariables) {
   }
   return(base_formula) }
 
+# this function associates an exposure with disease status, while controlling for adjusting variables, using Cox model.
 cont_ewas <- function(data, depvar, time1, time2,  covars , adjvars, alpha, psi){
   c <- 0
   out_df <- data.frame(matrix(ncol = 10, nrow = length(covars)))#, row.names = b)
@@ -50,7 +51,7 @@ cont_ewas <- function(data, depvar, time1, time2,  covars , adjvars, alpha, psi)
     zp <- cox.zph(mod)
     out_df[i,]['PH_pval'] <- zp$table[1,3]
 
-    #power
+    # power calculation
     n <- length(unique(data$id))
     ua2<-qnorm(1-alpha/2)
     theta <- summary(mod)$coefficients[1,][2]
@@ -64,7 +65,7 @@ cont_ewas <- function(data, depvar, time1, time2,  covars , adjvars, alpha, psi)
     res<-list(power=power, rho2=rho2, sigma2=sigma2, psi=psi)
     out_df[i,]['stat_power'] <- res$power
 
-    # VIF
+    # VIF calculation
     formula_base <- NULL
     formula_base <- as.formula(sprintf('%s ~ %s', i,paste(adjvars, collapse= "+") ))
     res.lm<-lm(formula = formula_base, data = data)
@@ -78,10 +79,10 @@ cont_ewas <- function(data, depvar, time1, time2,  covars , adjvars, alpha, psi)
 data_path <- './data.sas7bdat'
 data <- read_sas(data_path)
 
-covar <- c()
-adjustfor <- c()
+covar <- c()     # this vector should be filled with exposure names.
+adjustfor <- c()  # this vector should be filled with adjusting variables, such as age, gender, race, etc..
 
-
+# parallel computing
 no_cores <- detectCores() - 2
 cl<-makeCluster(no_cores)
 registerDoParallel(cl)
