@@ -35,23 +35,17 @@ boxcox_trans <- function(df, temp_var){
 
 
 df <-  read_sas("./data.sas7bdat")
-
-
-
-covar <- c()
-adjustfor <- c()
+covar <- c(...)    # this vector should be filled with exposure names.
+adjustfor <- c(...)     # this vector should be filled with adjusting variables.
 
 all_var <- c(covar, adjustfor, 'id', 'chdcase', 'start_time', 'stop_time')
 df <- df[, (names(df) %in% all_var)]
-
-
 df <- na.locf(df, na.rm = FALSE)
 
 
 temp_var <- c(covar,  'calorconv')
 
-
-
+# paraller computing for Box-Cox transformation
 no_cores <- detectCores() - 2
 cl<-makeCluster(no_cores)
 registerDoParallel(cl)
@@ -75,13 +69,11 @@ for (i in add_var){
   trans_df[[i]] <- df[[i]]
 }
 
-
+# z-transformation
 z_trans_df <- trans_df
-c <- 1
+
 for (i in temp_var){
   z_trans_df[[i]] <- scale(z_trans_df[[i]])[,1]
-  print(c)
-  c <- c+1
 }
 
 
