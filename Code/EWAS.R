@@ -79,8 +79,8 @@ cont_ewas <- function(data, depvar, time1, time2,  covars , adjvars, alpha, psi)
 data_path <- './data.sas7bdat'
 data <- read_sas(data_path)
 
-covar <- c()     # this vector should be filled with exposure names.
-adjustfor <- c()  # this vector should be filled with adjusting variables, such as age, gender, race, etc..
+covar <- c(...)     # this vector should be filled with exposure names.
+adjustfor <- c(...)  # this vector should be filled with adjusting variables, such as age, gender, race, etc..
 
 # parallel computing
 no_cores <- detectCores() - 2
