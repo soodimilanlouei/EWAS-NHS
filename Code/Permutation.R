@@ -41,8 +41,8 @@ shuff_cwas <- function(data, depvar, time1, time2,  covars , adjvars){
 
 data <- read_sas("./data.sas7bdat")
 
-covar <- c()     # this vector should be filled with exposure names.
-adjustfor <- c()   # this vector should be filled with adjusitng variables.
+covar <- c(...)     # this vector should be filled with exposure names.
+adjustfor <- c(...)   # this vector should be filled with adjusitng variables.
 
 
 
@@ -62,7 +62,7 @@ id_idx$pred2 <- cumsum(id_idx$pred)
 id_idx$pred20 <- id_idx$pred2 - id_idx$pred
 id_idx$chdcase <- 0
 
-adjustfor <- c()
+adjustfor <- c(...)
 
 n_permutation <- 1000
 perm_df <- data.frame()
