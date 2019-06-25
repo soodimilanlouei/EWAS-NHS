@@ -19,7 +19,7 @@ library(Hmisc)
 library(corrplot)
 
 data <- read_sas('./data.sas7bdat')
-sig_covar <- c()     # this vector should be filled with statisitcally significant variables found by EWAS.
+sig_covar <- c(...)     # this vector should be filled with statisitcally significant variables found by EWAS.
 
 
 cor_res <- rcorr(as.matrix(data), type = 'spearman')
