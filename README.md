@@ -6,5 +6,9 @@
 
 **Status**: Under Review
 
+Software versions used:
+* Python: 2.7.16
+* R: 3.4.0
+
 
 
