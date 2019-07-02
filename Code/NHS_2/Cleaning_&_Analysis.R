@@ -1,7 +1,5 @@
-setwd("/udd/nhsom/EWAS/Validation/")
-
 library(car)
-#library(bestNormalize)
+library(bestNormalize)
 library(data.table)
 library(datasets)
 library(devtools)
@@ -12,43 +10,9 @@ library(MASS)
 library(parallel)
 library(survival)
 library(zoo)
-#library(adegenet)
+library(adegenet)
 library(glmnet)
 library(fmsb)
-
-
-categorize_smk <- function(new_data, old_data, method){
-
-  new_data$smkdrcon <- old_data$smkdrcon
-
-  if (method == 'harvard'){
-    new_data$smkdrcon <- ifelse(new_data$smkdrcon == 0 | new_data$smkdrcon == 15 , 0,new_data$smkdrcon)
-    new_data$smkdrcon <- ifelse(new_data$smkdrcon == 1 , 1,new_data$smkdrcon)
-    new_data$smkdrcon <- ifelse(new_data$smkdrcon > 1 & new_data$smkdrcon < 9, 2,new_data$smkdrcon)
-    new_data$smkdrcon <- ifelse(new_data$smkdrcon > 8 & new_data$smkdrcon < 11, 3,new_data$smkdrcon)
-    new_data$smkdrcon <- ifelse(new_data$smkdrcon == 11 , 4,new_data$smkdrcon)
-    new_data$smkdrcon <- ifelse(new_data$smkdrcon > 11 , 5,new_data$smkdrcon)
-  }
-  if (method == 1){
-    new_data$smkdrcon <- ifelse(new_data$smkdrcon == 0 | new_data$smkdrcon == 15 , 0,new_data$smkdrcon)
-    new_data$smkdrcon <- ifelse(new_data$smkdrcon == 1 , 1,new_data$smkdrcon)
-    new_data$smkdrcon <- ifelse(new_data$smkdrcon > 1 & new_data$smkdrcon < 5, 2,new_data$smkdrcon)
-    new_data$smkdrcon <- ifelse(new_data$smkdrcon > 4 & new_data$smkdrcon < 12, 3,new_data$smkdrcon)
-    new_data$smkdrcon <- ifelse(new_data$smkdrcon ==12 , 4,new_data$smkdrcon)
-    new_data$smkdrcon <- ifelse(new_data$smkdrcon >12 , 5,new_data$smkdrcon)
-  }
-  if (method == 2){
-    new_data$smkdrcon <- ifelse(new_data$smkdrcon == 0 | new_data$smkdrcon == 15 , 0,new_data$smkdrcon)
-    new_data$smkdrcon <- ifelse(new_data$smkdrcon == 1 , 1,new_data$smkdrcon)
-    new_data$smkdrcon <- ifelse(new_data$smkdrcon > 1 & new_data$smkdrcon < 5 | new_data$smkdrcon == 8, 2,new_data$smkdrcon)
-
-    new_data$smkdrcon <- ifelse(new_data$smkdrcon > 4 & new_data$smkdrcon < 9, 3,new_data$smkdrcon)
-    new_data$smkdrcon <- ifelse(new_data$smkdrcon > 8 & new_data$smkdrcon < 12, 4,new_data$smkdrcon)
-    new_data$smkdrcon <- ifelse(new_data$smkdrcon >11 , 5,new_data$smkdrcon)
-  }
-  return(new_data)
-}
-
 
 addToBase <- function(base_formula, adjustingVariables) {
   for (var in adjustingVariables) {
