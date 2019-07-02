@@ -14,7 +14,8 @@ library(adegenet)
 library(glmnet)
 library(fmsb)
 
-# Cleaning
+######## Cleaning ########
+
 addToBase <- function(base_formula, adjustingVariables) {
   for (var in adjustingVariables) {
     base_formula <- update.formula( base_formula, as.formula(sprintf('~ . + %s', var)) )
@@ -51,7 +52,7 @@ df <- df[, (names(df) %in% all_var)]
 
 temp_var <- c(covar, 'calorconvconv')
 
-# parallel computing
+# parallel computing for Box-Cox transformation
 no_cores <- detectCores() - 2
 cl<-makeCluster(no_cores)
 registerDoParallel(cl)
@@ -75,18 +76,16 @@ for (i in add_var){
   trans_df[[i]] <- df[[i]]
 }
 
-
+# z-transformation
 z_trans_df <- trans_df
-c <- 1
+
 for (i in temp_var){
   z_trans_df[[i]] <- scale(z_trans_df[[i]])[,1]
-  print(c)
-  c <- c+1
 }
 
 write_sas(z_trans_df,'cleaned_data.sas7bdat')
               
-# Analysis
+######## Analysis ########
 
 # this function associates an exposure with disease status, while controlling for adjusting variables, using Cox model.
 cont_ewas <- function(data, depvar, time1, time2,  covars , adjvars, alpha, psi){
@@ -161,8 +160,6 @@ out <- foreach(covar = covar,
 
 
 out <- out[order(out$p_val),]
-
 write.csv(out, './ewas_results_nhs2.csv')
-
 stopCluster(cl)
 stopImplicitCluster()
