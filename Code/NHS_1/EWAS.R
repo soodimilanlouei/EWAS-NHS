@@ -75,7 +75,7 @@ cont_ewas <- function(data, depvar, time1, time2,  covars , adjvars, alpha, psi)
 }
 
 
-
+# read data
 data_path <- './data.sas7bdat'
 data <- read_sas(data_path)
 
@@ -101,5 +101,6 @@ out <- foreach(covar = covar,
 out <- out[order(out$p_val),]
 write.csv(out, './EWAS_results.csv')
 
+# stop parallel computing
 stopCluster(cl)
 stopImplicitCluster()
