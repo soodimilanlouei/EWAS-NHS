@@ -53,7 +53,7 @@ doForm <- addToBase(baseform, adjustfor)
 mod <- coxph(formula = doForm, data = data)
 num_cases <- 2774            # this is the number of cases in the dataset.
 
-
+# predict the failure probability for each participant at each time stamp
 pred <- survival:::predict.coxph(mod, type='expected')
 pred <- pred/num_cases
 id_idx <- data.frame(data$id)
