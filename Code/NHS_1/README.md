@@ -1,5 +1,4 @@
 <p align="justify">
-
 Codes used for the main analysis are stored here.
 
 1. **Cleaning.R**: Here, the data is prepared for the analysis. Beside cleanings specific to the data, exposure variables are firstly transformed using Box-Cox transformation. Next, Z-transformation has been done to make the effect sizes comparable.
@@ -13,5 +12,4 @@ Codes used for the main analysis are stored here.
 5. **Correlation_Analysis.R**: The correlation analysis is done in the SI. The Spearman correlation between significant associations found in NHS. Similar to (Patel, 2014), a permutation-based approach is used to estimate the two-sided P-value of significance for each pair of correlations. Given a pair of X and Y, we shuffled values of X and computed the correlation with Y, repeating this procedure for all pairs. The P-value for a correlation was the fraction of correlations from the permuted dataset with greater absolute value.
 
 6. **Plots.py**: This file contains the code for creating most of the plots in the manuscript.
-
 </p>
