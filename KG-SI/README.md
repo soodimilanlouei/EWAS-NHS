@@ -7,7 +7,6 @@ Since not all papers are indexed on PubMed, we searched the web with same criter
 
 <p align="justify">
 The obtained data is shown in a knowledge graph (Figure 1 in the manuscript) where each link is representing an association. The space of studied exposures is rather heterogeneous and is often driven by the researcher's interests and experience. For example, the effects of some nutrients were studied with respect to replacement with other nutrients, e.g., the effect of replacing trans fat with monounsaturated fatty acids. In some cases, the intake ratio of two nutrients, e.g., the ratio of polyunsaturated fat to trans fat, or of two food items was examined. Moreover, according to the exposure of interest, the set of adjusting variables used to account for confounding effects varied from one study to another.
-
 </p>
 
 
