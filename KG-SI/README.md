@@ -1,4 +1,5 @@
 <p align="justify">
+  
 To create the knowledge graph, we firstly searched the PubMed for papers which have *Nurses’ Health Study* or *Health Professionals Follow-up Study* in title or abstract, along with papers co-authored with main PIs of NHS. We manually filtered papers which studied the association between dietary exposures and heart-related complications, such as *coronary heart disease*, *stroke*, and *hypertension*.
 </p>
 <p align="justify">
