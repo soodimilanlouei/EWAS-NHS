@@ -24,7 +24,7 @@ addToBase <- function(base_formula, adjustingVariables) {
 # this function associates an exposure with disease status, while controlling for adjusting variables, using Cox model.
 cont_ewas <- function(data, depvar, time1, time2,  covars , adjvars, alpha, psi){
   c <- 0
-  out_df <- data.frame(matrix(ncol = 10, nrow = length(covars)))#, row.names = b)
+  out_df <- data.frame(matrix(ncol = 10, nrow = length(covars)))
   row.names(out_df) <- covars
   colnames(out_df) <- c('coef','exp_coef', 'se_coef', 'z', 'p_val','LB','UB','stat_power','PH_pval', 'VIF')
 
@@ -47,7 +47,7 @@ cont_ewas <- function(data, depvar, time1, time2,  covars , adjvars, alpha, psi)
     out_df[i,]['LB'] <- summary(mod)$conf.int[1,][3]
     out_df[i,]['UB'] <- summary(mod)$conf.int[1,][4]
 
-
+    # checking for the proportional hazard assumption
     zp <- cox.zph(mod)
     out_df[i,]['PH_pval'] <- zp$table[1,3]
 
