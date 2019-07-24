@@ -61,6 +61,7 @@ for i in range(len(raw)):
 out_df3['fdr'] = raw2
 out_df3 = out_df3[['p_val','fdr']]
 
+# an FDR of 0.05 is specified to determine significant assoications
 thre = 0.05
 print 'NUMBER OF SIGNIFICANT TESTS : ', thre , len(out_df3[out_df3.fdr < thre])
 
