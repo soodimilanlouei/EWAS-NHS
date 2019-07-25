@@ -21,6 +21,7 @@ addToBase <- function(base_formula, adjustingVariables) {
   }
   return(base_formula) }
 
+# this function transforms the continuous variables using Box-Cox transformation
 boxcox_trans <- function(df, temp_var){
   for (i in temp_var){
     lambda <- boxCox(df[[i]]~1, family="yjPower", plotit = FALSE)
@@ -39,6 +40,10 @@ covar <- c(...)    # this vector should be filled with exposure names.
 adjustfor <- c(...)     # this vector should be filled with adjusting variables.
 
 all_var <- c(covar, adjustfor, 'id', 'chdcase', 'start_time', 'stop_time')
+# id is a unique identifier for each participant
+# chdcase is a binary variable showing whether a participant developed CHD or not
+# start_time and stop_time indicate the beginning and end of an observation for a participant
+
 df <- df[, (names(df) %in% all_var)]
 df <- na.locf(df, na.rm = FALSE)
 
