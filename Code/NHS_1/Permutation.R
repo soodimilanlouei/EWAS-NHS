@@ -1,3 +1,5 @@
+# load required libraries
+
 library(car)
 library(bestNormalize)
 library(data.table)
@@ -16,58 +18,93 @@ library(fmsb)
 
 
 
-addToBase <- function(base_formula, adjustingVariables) {
+# functoin  >> to extend the base formula with variables we are adjusting for
+# @arguments >> base_formula: a formula object with the dependent variable as a function of the independent variable
+# @arguments >> adjustingVariables: a character vector of column names from the data.frame to adjust for
+# @return    >> an updated formula object representing a base formula with adjustment variables
+ 
+addToBase <- function(base_formula, adjustingVariables) 
+{
   for (var in adjustingVariables) {
     base_formula <- update.formula( base_formula, as.formula(sprintf('~ . + %s', var)) )
   }
-  return(base_formula) }
+  return(base_formula) 
+}
 
-shuff_cwas <- function(data, depvar, time1, time2,  covars , adjvars){
 
-  out_df <- data.frame(matrix(ncol = length(covars), nrow = 1))
-  colnames(out_df) <- covars
+# function   >> to recalculate the cox model for the shuffeled data and collect the null p-value
+# @arguments >> data: a dataframe containing the cohort data
+# @arguments >> depvar: dependent variable in the survival analysis
+# @arguments >> time1: the variable showing the start time of an observation
+# @arguments >> time2: the variable showing the end time of an observation
+# @arguments >> covars: exposure of interest that we want to find its effect on a disease risk
+# @arguments >> adjvars: a vector containing the variables that we want to adjust our analysis for
+# @return    >> a dataframe containing the name of the exposure of interest and the null p-value
 
-  for (i in covars){
-    baseform <- NULL
-    doForm <- NULL
-    baseform <- as.formula(sprintf('Surv(%s, %s, %s) ~ %s', time1, time2, depvar, i))
-    doForm <- addToBase(baseform, adjvars)
-    mod <- coxph(formula = doForm, data = data)
-    out_df[1,i] <- summary(mod)$coefficients[1,][5]
-  }
+shuff_ewas <- function(data, depvar, time1, time2,  covar , adjvars)
+{
+
+  out_df <- data.frame(matrix(ncol = 1, nrow = 1))
+  colnames(out_df) <- covar
+
+  baseform <- NULL
+  doForm <- NULL
+  baseform <- as.formula(sprintf('Surv(%s, %s, %s) ~ %s', time1, time2, depvar, covar))
+  doForm <- addToBase(baseform, adjvars)
+  mod <- coxph(formula = doForm, data = data)
+  out_df[1,covar] <- summary(mod)$coefficients[1,][5]
+  
   return(out_df)
 }
 
 
-data <- read_sas("./data.sas7bdat")
+# read data
+data <- read_sas('cleaned_data_sample.sas7bdat')
 
-covar <- c(...)     # this vector should be filled with exposure names.
-adjustfor <- c(...)   # this vector should be filled with adjusitng variables.
+# this vector should be filled with exposure names.
+covar <- c('fat_intake', 	'protein_intake'	'vitamin_intake'	'fruit_intake'	'meat_intake')  
+
+# this vector should be filled with adjusting variables.
+adjustfor <- c('physical_activity',	'calorie_intake')  
 
 
-
+# associate the adjusting variables with the time of developing a disease of interest
 baseform <- NULL
 doForm <- NULL
-baseform <- as.formula(sprintf('Surv(%s, %s, %s) ~ %s', 'start_time', 'stop_time', 'chdcase', 'agecon'))
-doForm <- addToBase(baseform, adjustfor)
-mod <- coxph(formula = doForm, data = data)
-num_cases <- 2774            # this is the number of cases in the dataset.
+baseform <- as.formula(sprintf('Surv(%s, %s, %s) ~ %s + %s', 'start_time', 'stop_time',
+                               'chdcase', 'physical_activity',	'calorie_intake'))
+mod <- coxph(formula = baseform, data = data)
+
+# this is the number of cases in the dataset.
+num_cases <- sum(data$chdcase)            
 
 # predict the failure probability for each participant at each time stamp
-pred <- survival:::predict.coxph(mod, type='expected')
-pred <- pred/num_cases
+failure_prob <- survival:::predict.coxph(mod, type='expected')
+failure_prob <- failure_prob/num_cases
+
+# below, we generate a dataframe as following:
+
+# | id  |  failure_prob  |  failure_prob_cumsum  |  failure_prob_bound  |   
+# -----------------------------------------------------------------------
+# |  1  |     0.10       |          0.10         |          0           |    
+# |  1  |     0.05       |          0.15         |         0.10 `       |     
+# |  1  |     0.15       |          0.30         |         0.15         |  
+# |  2  |     0.20       |          0.50         |         0.30         |   
+# |  2  |     0.15       |          0.65         |         0.50         |   
+# |  2  |     0.25       |          0.90         |         0.65         |     
+# |  2  |     0.10       |          1.00         |         0.90         |     
+
+
 id_idx <- data.frame(data$id)
-id_idx$pred <- pred
-id_idx$pred2 <- cumsum(id_idx$pred)
-id_idx$pred20 <- id_idx$pred2 - id_idx$pred
-id_idx$chdcase <- 0
+id_idx$failure_prob <- failure_prob
+id_idx$failure_prob_cumsum <- cumsum(id_idx$failure_prob)
+id_idx$failure_prob_bound <- id_idx$failure_prob_cumsum - id_idx$failure_prob
 
-adjustfor <- c(...)
-
+# specify the number of permutations
 n_permutation <- 1000
+
+
 perm_df <- data.frame()
-
-
 log <- "log.txt"
 
 for (n in 1:n_permutation){
@@ -77,7 +114,7 @@ for (n in 1:n_permutation){
 
   while (sum(id_idx$chdcase) < num_cases){
     rand_p <- runif(1, min=0, max=1)
-    id_idx$chdcase[between(rand_p, id_idx$pred20, id_idx$pred2)] <- 1
+    id_idx$chdcase[between(rand_p, id_idx$failure_prob_bound, id_idx$failure_prob_cumsum)] <- 1
   }
 
   data$new_chdcase <- id_idx$chdcase
@@ -97,7 +134,7 @@ for (n in 1:n_permutation){
                           sink(log, append = TRUE)
                           cat(paste("\n","Starting iteration",covar,"\n"))
                           sink()
-                          shuff_cwas(df, 'new_chdcase', 'start_time', 'stop_time', covar, adjustfor)
+                          shuff_ewas(df, 'new_chdcase', 'start_time', 'stop_time', covar, adjustfor)
                         }
 
   perm_df <- rbind(shuff_pval, perm_df)
