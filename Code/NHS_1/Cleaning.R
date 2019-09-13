@@ -18,8 +18,8 @@ library(fmsb)
 
 
 # function  >> to transform a continuous variable using Box-Cox transformation
-# arguments >> *data*: the dataframe that we wish to transform the variable from. 
-# arguments >> *continuous_vars*: a character indicating the continuous variable's name that we wish to transfrom
+# arguments >> data: the dataframe that we wish to transform the variable from. 
+# arguments >> continuous_vars: a character indicating the continuous variable's name that we wish to transfrom
 # return    >> a dataframe with one column containing the transformed values
 
 boxcox_trans <- function(data, continuous_var)
@@ -52,7 +52,7 @@ all_var <- c(covar, adjustfor, 'id', 'chdcase', 'start_time', 'stop_time')
 data <- data[, (names(data) %in% all_var)]
 
 # in our particular data, the missing values denoted by NA only appeared in the last observation 
-# of each participant. The below function applies a *last observation carried forward* (LOCF) approach,
+# of each participant. The below function applies a last observation carried forward (LOCF) approach,
 # a common method when working with time series data, to impute these missing values.
 data <- na.locf(data, na.rm = FALSE)
 
