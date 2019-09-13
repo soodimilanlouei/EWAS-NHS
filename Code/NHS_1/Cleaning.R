@@ -17,7 +17,7 @@ library(glmnet)
 library(fmsb)
 
 
-# function  >> to transform a continuous variable using Box-Cox transformation
+# function   >> to transform a continuous variable using Box-Cox transformation
 # @arguments >> data: the dataframe that we wish to transform the variable from
 # @arguments >> continuous_vars: a character indicating the continuous variable's name that we wish to transfrom
 # @return    >> a dataframe with one column containing the transformed values
