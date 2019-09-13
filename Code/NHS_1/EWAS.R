@@ -14,6 +14,12 @@ library(adegenet)
 library(glmnet)
 library(fmsb)
 
+#' Extend the base formula with variables we are adjusting for.
+#'
+#' @param base_formula a formula object with the dependent variable as a function of the independent variable
+#' @param adjustingVariables a character vector of column names from the data.frame to adjust for
+#'
+#' @return An updated formula object representing a base formula with adjustment variables.
 
 addToBase <- function(base_formula, adjustingVariables) {
   for (var in adjustingVariables) {
