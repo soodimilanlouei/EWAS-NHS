@@ -18,9 +18,9 @@ library(fmsb)
 
 
 # function  >> to transform a continuous variable using Box-Cox transformation
-# arguments >> data: the dataframe that we wish to transform the variable from. 
-# arguments >> continuous_vars: a character indicating the continuous variable's name that we wish to transfrom
-# return    >> a dataframe with one column containing the transformed values
+# @arguments >> data: the dataframe that we wish to transform the variable from
+# @arguments >> continuous_vars: a character indicating the continuous variable's name that we wish to transfrom
+# @return    >> a dataframe with one column containing the transformed values
 
 boxcox_trans <- function(data, continuous_var)
 {
@@ -34,7 +34,7 @@ boxcox_trans <- function(data, continuous_var)
 }
 
 # read the data
-data <-  read_sas("./data_sample.sas7bdat")
+data <-  read_sas('data_sample.sas7bdat')
 
 # this vector should be filled with exposure names.
 covar <- c('fat_intake', 	'protein_intake'	'vitamin_intake'	'fruit_intake'	'meat_intake')  
