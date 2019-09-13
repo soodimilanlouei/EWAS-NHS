@@ -31,7 +31,7 @@ addToBase <- function(base_formula, adjustingVariables)
 }
 
 
-# function  >> to associate an exposure with disease status, while controlling for adjusting variables, using Cox model
+# function   >> to associate an exposure with disease status, while controlling for adjusting variables, using Cox model
 # @arguments >> data: a dataframe containing the cohort data
 # @arguments >> depvar: dependent variable in the survival analysis
 # @arguments >> time1: the variable showing the start time of an observation
