@@ -1,3 +1,5 @@
+In *data_sample.sas7bdat*, a random sample is stored to show the format of the data that we used in our analysis. Please note that this is not a subset of the real data but an expression of how the real data may look like and what the required data format is for this analysis.
+
 
 Codes used for the main analysis are stored here.
 
