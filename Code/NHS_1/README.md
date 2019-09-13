@@ -15,7 +15,7 @@
 4. **FDR_estimation.py**  <p align="justify"> The outcome of the previous step is used here to estimate the False Discovery Rate (FDR), to control for type I error due to multiple hypotheses testing. The FDR is estimated to be the ratio of the proportion of results that were called significant at a given level alpha in the null distribution and the proportion of results called significant from real tests.
 </p>
 
-5. **Correlation_Analysis.R**  <p align="justify"> The correlation analysis is done in the SI. The Spearman correlation between significant associations found in NHS. Similar to (Patel, 2014), a permutation-based approach is used to estimate the two-sided P-value of significance for each pair of correlations. Given a pair of X and Y, we shuffled values of X and computed the correlation with Y, repeating this procedure for all pairs. The P-value for a correlation was the fraction of correlations from the permuted dataset with greater absolute value.
+5. **Correlation_Analysis.R**  <p align="justify"> The correlation analysis is done in the SI. The Spearman correlation between significant associations found in NHS. Similar to (Patel and Manrai, 2014), a permutation-based approach is used to estimate the two-sided P-value of significance for each pair of correlations. Given a pair of X and Y, we shuffled values of X and computed the correlation with Y, repeating this procedure for all pairs. The P-value for a correlation was the fraction of correlations from the permuted dataset with greater absolute value.
 </p>
 
 6. **Plots.py**  <p align="justify"> This file contains the code for creating most of the plots in the manuscript.
