@@ -1,7 +1,7 @@
 In *data_sample.sas7bdat*, a random sample is stored to show the format of the data that we used in our analysis. Please note that this is not a subset of the real data but an expression of how the real data may look like and what the required data format is for this analysis.
 
 
-Codes used for the main analysis are stored here.
+**Codes used for the main analysis are stored here.**
 
 1. **Cleaning.R** <p align="justify"> Here, the data is prepared for the analysis. Beside cleanings and manipulation specific to the data, exposure variables are firstly transformed using Box-Cox transformation. Next, Z-transformation has been done to make the effect sizes comparable.
 </p>
