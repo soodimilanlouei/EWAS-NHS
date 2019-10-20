@@ -37,7 +37,7 @@ boxcox_trans <- function(data, continuous_var)
 data <-  read_sas('data_sample.sas7bdat')
 
 # this vector should be filled with exposure names.
-covar <- c('fat_intake', 	'protein_intake'	'vitamin_intake'	'fruit_intake'	'meat_intake')  
+covar <- c('fat_intake', 	'protein_intake',	'vitamin_intake',	'fruit_intake',	'meat_intake')  
 
 # this vector should be filled with adjusting variables.
 adjustfor <- c('physical_activity',	'calorie_intake')  
@@ -57,7 +57,7 @@ data <- data[, (names(data) %in% all_var)]
 data <- na.locf(data, na.rm = FALSE)
 
 # put continuous variables in a vector to apply Box-Cox transformation on.
-continuous_var <- c('fat_intake', 	'protein_intake'	'vitamin_intake'	'fruit_intake'	'meat_intake', 
+continuous_var <- c('fat_intake', 	'protein_intake',	'vitamin_intake',	'fruit_intake',	'meat_intake', 
                      'physical_activity',	'calorie_intake')
 
 # paraller computing for Box-Cox transformation
