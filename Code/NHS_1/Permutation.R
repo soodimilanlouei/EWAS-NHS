@@ -62,7 +62,7 @@ shuff_ewas <- function(data, depvar, time1, time2,  covar , adjvars)
 data <- read_sas('cleaned_data_sample.sas7bdat')
 
 # this vector should be filled with exposure names.
-covar <- c('fat_intake', 	'protein_intake'	'vitamin_intake'	'fruit_intake'	'meat_intake')  
+covar <- c('fat_intake', 	'protein_intake',	'vitamin_intake',	'fruit_intake',	'meat_intake')  
 
 # this vector should be filled with adjusting variables.
 adjustfor <- c('physical_activity',	'calorie_intake')  
