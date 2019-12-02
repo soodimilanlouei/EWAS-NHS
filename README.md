@@ -39,6 +39,10 @@ In Python:
 pip install pandas
 pip install scipy.stats 
 ```
+### Version Numbers for Python Packages
+
+* pandas: 0.23.4
+* scipy.stats: 0.18.1
 
 In R:
 ```
