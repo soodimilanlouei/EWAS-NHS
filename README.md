@@ -66,6 +66,9 @@ install.packages(c('car', 'bestNormalize', 'data.table', 'datasets', 'devtools',
 * glmnet: 2.0.16
 * corrplot: 0.84
 
+
+Typical install time on a normal desktop computer for all Python and R packages is less than 10 minutes.
+
 </p>
 
 
