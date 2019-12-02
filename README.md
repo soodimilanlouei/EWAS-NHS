@@ -33,11 +33,6 @@ Software versions used:
 
 ## Installation Guide
 
-In R:
-```
-install.packages(c('car', 'bestNormalize', 'data.table', 'datasets', 'devtools', 'doParallel', 'foreach', 'haven', 'MASS', 'parallel', 'survival', 'zoo', 'adegenet', 'glmnet'))
-```
-
 In Python:
 
 ```
@@ -45,7 +40,27 @@ pip install pandas
 pip install scipy.stats 
 ```
 
+In R:
+```
+install.packages(c('car', 'bestNormalize', 'data.table', 'datasets', 'devtools', 'doParallel', 'foreach', 'haven', 'MASS', 'parallel', 'survival', 'zoo', 'adegenet', 'glmnet', 'corrplot))
+```
+### Version Numbers for R Packages
 
+* car: 3.0.3
+* bestNormalize: 1.3.0
+* data.table: 1.11.8
+* datasets: 3.5.0
+* devtools: 2.0.1
+* doParallel: 1.0.14
+* foreach: 1.4.4
+* haven: 2.0.0
+* MASS: 7.3.51.1
+* parallel: 3.5.0
+* survival: 2.43.3
+* zoo: 1.8.4
+* adegenet: 2.1.1
+* glmnet: 2.0.16
+* corrplot: 0.84
 
 </p>
 
