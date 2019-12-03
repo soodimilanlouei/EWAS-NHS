@@ -1,3 +1,4 @@
+*.rb linguist-language=Java
 
-* linguist-vendored
-*.m linguist-vendored=false
+# * linguist-vendored
+# *.m linguist-vendored=false
