@@ -17,6 +17,7 @@
 All the codes provided require a standard computer with enough RAM to support the operations. For minimal performance, this will be a computer with about 16 GB of RAM and 4 cores. For optimal performance, we recommend a computer with the following specifications:
 
 RAM: 100+ GB
+
 CPU: 32+ cores
 
 ### Software Requirements
