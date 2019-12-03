@@ -23,8 +23,10 @@ CPU: 32+ cores
 
 Provided codes have been tested on the following systems:
 
-Mac OSX (10.14.6)
+Mac OSX (10.14.6) 
+
 Windows: 7+
+
 Linux: Ubuntu 16.04
 
 Software versions used:
