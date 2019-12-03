@@ -22,3 +22,6 @@
 
 6. **Plots.py**  <p align="justify"> This file contains the code for creating most of the plots in the manuscript.
 </p>
+
+7. **main_SESfigures.m** <p align="justify"> The Socio-economics (SES) analysis is done in the SI. We analyzed the effect of SES and compared it with our primary results. This code produces Figures 4 and 5 in the SI.
+</p>
