@@ -30,6 +30,7 @@ Linux: Ubuntu 16.04
 Software versions used:
 * Python: 2.7.16
 * R: 3.4.0
+* MATLAB: 9.6
 
 ## Installation Guide
 
