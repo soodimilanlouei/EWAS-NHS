@@ -92,6 +92,6 @@ write.csv(cor_merge_2, './permuted_correlation.csv')
 
 # visualization
 # threshold is found using the permutation procedure and manually inserted here for the visualization
-thre <- 5.47E-05      
+thre <- 0.0498    
 corrplot(cor_res$r,  order="hclust", tl.cex = 0.5, tl.col = 'black', type="upper",
          p.mat = cor_res$P, sig.level = thre, insig = "pch", pch.cex = 0.5)
