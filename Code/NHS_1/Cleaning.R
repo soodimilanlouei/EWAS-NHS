@@ -45,7 +45,7 @@ adjustfor <- c('physical_activity',	'calorie_intake')
 
 # put all required variable in a vector
 all_var <- c(covar, adjustfor, 'id', 'chdcase', 'start_time', 'stop_time')
-# id is a unique identifier for each participant
+# id is a unique identifier for each participant in the study
 # chdcase is a binary variable showing whether a participant developed CHD or not
 # start_time and stop_time indicate the beginning and end of an observation for a participant
 
