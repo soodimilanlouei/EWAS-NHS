@@ -1,4 +1,4 @@
-<p align="justify"> In *data_sample.sas7bdat*, a random sample is stored to show the format of the data that we used in our analysis. Please note that this is not a subset of the real data but an expression of how the real data may look like and what the required data format is for this analysis.
+<p align="justify"> In <i>data_sample.sas7bdat</i>, a random sample is stored to show the format of the data that we used in our analysis. Please note that this is not a subset of the real data but an expression of how the real data may look like and what the required data format is for this analysis.
 </p>
 
 
