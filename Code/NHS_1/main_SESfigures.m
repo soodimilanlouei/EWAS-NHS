@@ -1,9 +1,5 @@
 
 
-
-
-
-
 function summarypanel(X1, Y1, S1, C1)
 %  X1:  scatter x
 %  Y1:  scatter y
@@ -461,14 +457,14 @@ opts = delimitedTextImportOptions("NumVariables", 13);
 opts.DataLines = [2, Inf];
 opts.Delimiter = ",";
 % Specify column names and types
-opts.VariableNames = ["varname", "Exposure", "coef", "exp_coef", "se_coef", "z", "p_val", "LB", "UB", "stat_power", "PH_pval", "VIF", "FDR"];
-opts.VariableTypes = ["char", "char", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double"];
+opts.VariableNames = ["varname", "Exposure", "coef", "exp_coef", "se_coef", "z", "p_val", "LB", "UB",  "PH_pval", "VIF", "FDR"];
+opts.VariableTypes = ["char", "char", "double", "double", "double", "double", "double", "double", "double",  "double", "double", "double"];
 opts = setvaropts(opts, [1, 2], "WhitespaceRule", "preserve");
 opts = setvaropts(opts, [1, 2], "EmptyFieldRule", "auto");
 opts.ExtraColumnsRule = "ignore";
 opts.EmptyLineRule = "read";
 % Import the data
-NoSES = readtable("NOSES.csv", opts);
+NoSES = readtable("EWAS_results.csv", opts);
 % Clear temporary variables
 clear opts
 
@@ -477,14 +473,14 @@ opts = delimitedTextImportOptions("NumVariables", 14);
 opts.DataLines = [2, Inf];
 opts.Delimiter = ",";
 % Specify column names and types
-opts.VariableNames = ["varname", "Exposure", "coef", "exp_coef", "se_coef", "z", "p_val", "LB", "UB", "stat_power", "PH_pval", "VIF", "type", "FDR"];
-opts.VariableTypes = ["char", "char", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "categorical", "double"];
+opts.VariableNames = ["varname", "Exposure", "coef", "exp_coef", "se_coef", "z", "p_val", "LB", "UB", "PH_pval", "VIF", "type", "FDR"];
+opts.VariableTypes = ["char", "char", "double", "double", "double", "double", "double", "double", "double",  "double", "double", "categorical", "double"];
 opts = setvaropts(opts, [1, 2], "WhitespaceRule", "preserve");
 opts = setvaropts(opts, [1, 2, 13], "EmptyFieldRule", "auto");
 opts.ExtraColumnsRule = "ignore";
 opts.EmptyLineRule = "read";
 % Import the data
-SES = readtable("SES.csv", opts);
+SES = readtable("EWAS_results_withSES.csv", opts);
 % Clear temporary variables
 clear opts
 
@@ -535,34 +531,16 @@ opts = setvaropts(opts, 1, "EmptyFieldRule", "auto");
 opts.ExtraColumnsRule = "ignore";
 opts.EmptyLineRule = "read";
 % Import the data
-ewasresultsnutrientsseshr = readtable("ewas_results_nutrients_ses_hr.csv", opts);
+EWAS_results_withSES = readtable("EWAS_results_withSES.csv", opts);
 % Clear temporary variables
 clear opts
 
-opts = delimitedTextImportOptions("NumVariables", 9);
-% Specify range and delimiter
-opts.DataLines = [2, Inf];
-opts.Delimiter = ",";
-% Specify column names and types
-opts.VariableNames = ["VarName1", "coef", "exp_coef", "se_coef", "z", "p_val", "LB", "UB", "PH_pval"];
-opts.VariableTypes = ["string", "double", "double", "double", "double", "double", "double", "double", "double"];
-opts = setvaropts(opts, 1, "WhitespaceRule", "preserve");
-opts = setvaropts(opts, 1, "EmptyFieldRule", "auto");
-opts.ExtraColumnsRule = "ignore";
-opts.EmptyLineRule = "read";
-% Import the data
-ewasresultsfoodsseshr = readtable("ewas_results_foods_ses_hr.csv", opts);
-% Clear temporary variables
-clear opts
 
-HRSES([ewasresultsnutrientsseshr.exp_coef; ewasresultsfoodsseshr.exp_coef])
+
+HRSES([EWAS_results_withSES.exp_coef])
 disp("average HRSES")
-disp(mean([ewasresultsnutrientsseshr.exp_coef; ewasresultsfoodsseshr.exp_coef]))
+disp(mean([EWAS_results_withSES.exp_coef]))
 disp("std HRSES")
-disp(std([ewasresultsnutrientsseshr.exp_coef; ewasresultsfoodsseshr.exp_coef]))
-
-
-
-
+disp(std([EWAS_results_withSES.exp_coef]))
 
 
