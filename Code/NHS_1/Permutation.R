@@ -111,11 +111,18 @@ for (n in 1:n_permutation){
 
   id_idx$chdcase <- 0
   data$new_chdcase <- 0
+ 
+ 
+ temp_id <- c()
+ while (sum(id_idx$chdcase) < 2774){
+   rand_p <- runif(1, min=0, max=1)
+   if (!(id_idx$data.id[between(rand_p, id_idx$failure_prob_bound, id_idx$failure_prob_cumsum)] %in% temp_id)){
+     id_idx$chdcase[between(rand_p, id_idx$failure_prob_bound, id_idx$failure_prob_cumsum)] <- 1
+     temp_id <- c(temp_id, id_idx$data.id[between(rand_p, id_idx$failure_prob_bound, id_idx$failure_prob_cumsum)])
 
-  while (sum(id_idx$chdcase) < num_cases){
-    rand_p <- runif(1, min=0, max=1)
-    id_idx$chdcase[between(rand_p, id_idx$failure_prob_bound, id_idx$failure_prob_cumsum)] <- 1
-  }
+   }
+
+}
 
   data$new_chdcase <- id_idx$chdcase
   data$new_chdcase <- ave(data$new_chdcase, data$id, FUN = function(x) replace(x, which(cumsum(x)>=1)[-1], NA))
