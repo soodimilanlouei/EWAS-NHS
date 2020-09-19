@@ -7,9 +7,6 @@
 
 **Authors**: Soodabeh Milanlouei, Giulia Menichetti, Yanping Li, Joseph Loscalzo, Walter C. Willett, Albert-Laszlo Barabasi
 
-**Status**: Accepted
-
-**DOI**: https://doi.org/10.5281/zenodo.4027901
 
 
 ## System Requirements
